@@ -1,0 +1,1493 @@
+@import url("https://fonts.googleapis.com/css2?family=Alata&family=Bebas+Neue&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans&family=Teko:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Acme&family=Archivo+Narrow:ital,wght@1,700&family=Archivo:wght@500&family=Catamaran:wght@200&family=Do+Hyeon&family=Francois+One&family=Lato:ital,wght@1,300&family=Noto+Serif+JP:wght@200&family=PT+Sans+Narrow&family=Quicksand:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Balsamiq+Sans&family=Open+Sans+Condensed:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Arvo&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Oxygen&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Grandstander:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap");
+html {
+  scroll-behavior: smooth;
+}
+* {
+  -webkit-tap-highlight-color: transparent;
+  overflow-wrap: break-word;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+}
+button, input{
+  outline: none;
+}
+body {
+  background: linear-gradient(90deg, rgba(238,238,238,1) 0%, rgba(255,255,255,1) 79%);
+}
+nav {
+  box-shadow: 0 2px 15px #453642;
+  z-index: 1;
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+}
+.logoNdLinks,
+.menuNdOther {
+  display: flex;
+  align-items: center;
+}
+.nav-logo {
+  font-family: "Bebas Neue", cursive;
+  margin: 0 8px;
+  padding: 3px;
+}
+.nav-logo > a {
+  text-decoration: none;
+}
+.big {
+  font-size: 38px;
+}
+.small {
+  font-size: 30px;
+}
+.big,
+.small {
+  color: black;
+}
+.crossNdLinks {
+  display: flex;
+}
+.cross {
+  display: none;
+}
+.searchBar {
+  border: 2px solid transparent;
+  display: flex;
+  border-radius: 5px;
+  padding: 2px;
+  background-color: #eee;
+  position: relative;
+  transition: .1s;
+}
+.searchBtn {
+  display: flex;
+  align-items: center;
+  margin-right: 6px;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  outline: none;
+}
+.searchBtn > i {
+  font-size: 26px;
+}
+.searchBar > input {
+  outline: none;
+  box-sizing: initial;
+  border: 0px solid transparent;
+  background-color: transparent;
+  width: -webkit-fill-available;
+  padding: 3px;
+  font-size: 21px;
+  font-family: "Roboto Condensed", sans-serif;
+  transition: 0.2s;
+  margin: 0 4px 0 4px;
+}
+.searchBar > input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 50px #fff inset;
+  -webkit-text-fill-color: #333;
+}
+.toggleSearchBtn {
+  display: none;
+  align-items: center;
+  margin-right: 6px;
+  cursor: pointer;
+  font-size: 22px;
+  background: white;
+  padding: 5px;
+  border-radius: 13px;
+}
+.toggleSearchBtn > i {
+  filter: drop-shadow(1px 1px 2px black);
+  transition: .2s;
+}
+.nav-links,
+.nav-links > .crossNdLinks > ul {
+  display: flex;
+  align-items: center;
+}
+.nav-links > .crossNdLinks > ul > li {
+  list-style: none;
+  margin: 0 10px;
+  transition: 0.3s;
+  position: relative;
+}
+.nav-links > .crossNdLinks > ul > li::before {
+  border-radius: 5px;
+  transition: 0.2s;
+  content: "";
+  background-color: #7d6868a6;
+  width: 100%;
+  height: 7px;
+  position: absolute;
+  z-index: -1;
+  bottom: 0;
+}
+.nav-links > .crossNdLinks > ul > li:hover::before {
+  height: 100%;
+}
+.nav-links > .crossNdLinks > ul > li:hover > a {
+  color: #eee;
+}
+.nav-links > .crossNdLinks > ul > li > a {
+  text-decoration: none;
+  padding: 2px;
+  font-family: "Alata", sans-serif;
+  font-size: 18px;
+  transition: 0.3s;
+  color: rgb(0, 0, 0);
+}
+.menuIcon {
+  display: none;
+}
+.dropdownOption {
+  position: relative;
+}
+.dropdownOption > div {
+  transition: 0.5s;
+  position: absolute;
+  top: 35px;
+  left: 8px;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+}
+.dropdownOption:hover > div {
+  opacity: 1;
+  height: 89px;
+}
+.dropdownOption > div > ul {
+  overflow: hidden;
+  background-color: white;
+  border-radius: 5px;
+}
+.searchBarContainer{
+  margin: 0 150px;
+}
+.dropdownOption > div > ul > li {
+  list-style: none;
+  margin: 4px 0;
+  text-align: center;
+  transition: 0.3s;
+}
+.dropdownOption > div > ul > li:hover {
+  background-color: #dae5e5;
+  border-radius: 2px;
+}
+.dropdownOption > div > ul > li > a {
+  text-decoration: none;
+  padding: 3px;
+  font-family: sans-serif;
+  font-size: 20px;
+  color: black;
+}
+.afterSuccessLogin {
+  display: flex;
+}
+.accountNameToggle {
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  font-size: 34px;
+  background-color: white;
+  border-radius: 36%;
+  padding: 0 4px;
+}
+/* .accountNameToggle > i {
+  transition: .2s;
+  filter: drop-shadow(4px 3px 4px black);
+} */
+.user {
+  color: white;
+  padding: 8px;
+  font-size: 17px;
+  border-radius: 23px;
+  margin: 0 5px;
+  background-color: #7a6f86;
+  font-family: "Poppins", sans-serif;
+}
+.signinSignup {
+  margin-right: 10px;
+  display: flex;
+}
+.btn {
+  font-size: 20px;
+  background-color: transparent;
+  outline: none;
+  margin: 0 5px;
+  border: 0px solid white;
+  border-radius: 8px;
+  transition: 0.2s;
+}
+.btn:hover {
+  background-color: white;
+}
+.btn > a {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+  transition: 0.2s;
+  padding: 4px;
+  display: inline-block;
+  font-family: "Alata", sans-serif;
+}
+.btn:hover > a {
+  color: black;
+}
+.modalContainer {
+  height: 100vh;
+  font-family: "Poppins", sans-serif;
+  position: fixed;
+  z-index: 10;
+  width: 100vw;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background-color: rgba(128, 128, 128, 0.5);
+  left: 0;
+  top: 0;
+  transition: 0.3s;
+}
+
+.displayNone {
+  display: none;
+}
+.opacityZero {
+  opacity: 0;
+}
+.modalContainer > form > h1 {
+  text-align: center;
+  font-size: 45px;
+}
+.modalContainer > form {
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  margin: 0 auto;
+  background: white;
+  border-radius: 17px;
+  box-shadow: 11px 11px 15px grey;
+  padding: 10px;
+}
+.modalContainer > form > label {
+  font-size: 25px;
+}
+.modalContainer > form > input,
+.modalContainer > form > textarea {
+  font-size: 17px;
+  outline: none;
+  border-radius: 6px;
+  border: 2px solid transparent;
+  background-color: #ddd;
+  font-family: "Arvo", serif;
+  padding: 13px;
+  max-width: 73.885798vw;
+  min-width: 73.885798vw;
+}
+.modalContainer > form > textarea {
+  min-height: 38.12vh;
+  max-height: 38.12vh;
+}
+.editQuesBtns {
+  font-family: "Oxygen", sans-serif;
+  margin: 10px 0 0 1px;
+}
+.editQuesBtns button,
+.editQuesBtns span {
+  font-family: "Oxygen", sans-serif;
+  outline: none;
+  border: 1px solid rgb(138, 77, 199);
+  color: rgb(138, 77, 199);
+  padding: 5px;
+  margin: 0 5px;
+  background-color: white;
+  font-size: 18px;
+  border-radius: 8px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+.editQuesBtns button:hover,
+.editQuesBtns span:hover {
+  background-color: rgb(138, 77, 199);
+  color: white;
+}
+/* Category Sidebar */
+.categorySidebar {
+  position: fixed;
+  right: 0;
+  width: 25vw;
+  background-color: rgba(238, 238, 238, 0.71);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 9px;
+  font-size: 20px;
+  overflow: hidden;
+  border-left: 2px solid #3a2f37eb;
+}
+.categorySidebar > h2 {
+  font-family: "Bebas Neue", cursive;
+  margin-bottom: 5px;
+  text-decoration: underline;
+  color: #3a2f37eb;
+}
+.categorySidebar > div {
+  width: 100%;
+  height: 86%;
+  overflow: auto;
+  padding-right: 26px;
+  box-sizing: content-box;
+}
+.ques {
+  margin: 3px 0;
+}
+.line {
+  height: 1px;
+  width: 100%;
+  background-color: rgb(0, 0, 0);
+}
+.ques > span {
+  font-family: "Teko", sans-serif;
+  font-size: 17px;
+  color: #706578;
+}
+.ques > h4 > a {
+  text-decoration: none;
+  color: black;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 20px;
+}
+.ques > h4 > a:hover {
+  text-decoration: underline;
+}
+.quesBtns button {
+  color: rebeccapurple;
+  border: 0px solid rebeccapurple;
+  background-color: transparent;
+  border-radius: 4px;
+  margin: 0 5px;
+  font-family: "Teko", sans-serif;
+  font-size: 23px;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.quesBtns button a {
+  color: rebeccapurple;
+  padding: 5px;
+  text-decoration: none;
+  font-family: "Teko", sans-serif;
+  transition: 0.3s;
+}
+.quesBtns button:hover {
+  color: white;
+  background-color: rebeccapurple;
+}
+.quesBtns button:hover a {
+  color: white;
+}
+.main {
+  width: 74vw;
+  padding: 10px;
+  /* background-color: pink; */
+}
+.main > h1 {
+  font-weight: 100;
+  font-family: "Do Hyeon", sans-serif;
+  margin: 10px auto;
+  background-color: white;
+  font-size: 50px;
+  text-align: center;
+  border-radius: 12px;
+  border: 2px solid;
+  color: #503d4c;
+}
+.noQuesAlert {
+  font-family: "Balsamiq Sans", cursive;
+  text-align: center;
+  font-size: 24px;
+}
+.noQuesAlertOnCategoryPage {
+  font-family: "Balsamiq Sans", cursive;
+  text-align: center;
+  font-size: 50px;
+  margin: 100px auto;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+.categoryContainer {
+  width: 90%;
+  margin: 10px auto;
+  border: 0px solid black;
+  border-radius: 11px;
+  padding: 5px;
+  background-color: white;
+  box-shadow: 1px 1px 4px;
+}
+.catQues {
+  margin: 0 5px;
+}
+.categoryContainer > legend {
+  font-family: "Archivo Narrow", sans-serif;
+  position: relative;
+  font-size: 30px;
+  z-index: 0;
+}
+.categoryContainer > legend::before {
+  content: "";
+  background-color: #7d6868a6;
+  transition: 0.1s;
+  width: 100%;
+  height: 6px;
+  position: absolute;
+  z-index: -1;
+  border-radius: 5px;
+  bottom: 0;
+}
+.categoryContainer > legend:hover::before {
+  height: 100%;
+}
+.categoryContainer > legend:hover a {
+  color: white;
+  -webkit-text-stroke: 1px black;
+}
+.categoryContainer > legend > a {
+  text-decoration: none;
+  color: black;
+  padding: 4px;
+}
+.catTitle > a {
+  text-decoration: none;
+  font-family: "Acme", sans-serif;
+  color: black;
+  font-size: 25px;
+  font-weight: lighter;
+  margin-bottom: 4px;
+  display: inline-block;
+}
+.catTitle > span {
+  font-family: "Catamaran", sans-serif;
+  background-color: #4a4248;
+  color: white;
+  border-radius: 5px;
+  padding: 0 3px;
+  font-size: 13px;
+  position: relative;
+  top: -5px;
+  display: inline-block;
+  margin: 3px;
+}
+.catTitle > a:hover {
+  text-decoration: underline;
+  color: #272326e3;
+}
+.catAnswer {
+  font-family: "Quicksand", sans-serif;
+  font-size: 19px;
+}
+/* Category.html page styling */
+.categorySection {
+  width: 90%;
+  margin: 10px auto;
+}
+.categorySection > h1 {
+  font-family: "Archivo Narrow", sans-serif;
+  text-align: center;
+  font-size: 58px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.categorySection > h1 > a {
+  text-decoration: none;
+  padding: 5px;
+  font-size: 20px;
+  background-color: black;
+  border-radius: 5px;
+  color: #fffbfb;
+}
+.postQuesWarn {
+  text-align: center;
+  padding: 10px;
+  border-top: 1px solid grey;
+  width: 70%;
+  margin: auto;
+  font-family: monospace;
+  font-size: 36px;
+}
+.quesBox h1 {
+  font-family: "IBM Plex Sans", sans-serif;
+  margin: 5px 0;
+  font-size: 35px;
+}
+.quesBox h1 a {
+  color: black;
+}
+.quesBox h1 a:hover {
+  color: #886a82;
+}
+.quesBox p {
+  font-family: "Quicksand", sans-serif;
+  margin: 5px 0;
+}
+.quesBox span {
+  font-family: "Catamaran", sans-serif;
+  background-color: #453642;
+  color: white;
+  border-radius: 5px;
+  padding: 0 3px;
+  font-size: 13px;
+  margin: 0 3px;
+}
+.askQues {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: 10px auto;
+  border-top: 1px solid black;
+}
+.askQues > h1 {
+  font-family: "Teko", sans-serif;
+  text-align: center;
+
+  font-size: 56px;
+}
+.askQues > input,
+.askQues > textarea {
+  width: 100%;
+  font-family: "Lato", sans-serif;
+  margin: 0px auto;
+  border-radius: 5px;
+  outline: none;
+  border: 2px solid transparent;
+  background-color: #ddd;
+  height: 32px;
+  font-size: 27px;
+  padding: 0 7px;
+}
+.askQues > textarea {
+  max-width: 100%;
+  min-width: 100%;
+  max-height: 80%;
+  min-height: 100px;
+}
+.askQues > span {
+  text-align: center;
+}
+.askQues > span > span {
+  padding: 4px;
+}
+.askQues > span > button,
+.askQues > small,
+.askQues > span > span {
+  width: 80%;
+  font-family: "Lato", sans-serif;
+  /* margin: 5px auto; */
+}
+.askQuesBtn {
+  font-size: 24px;
+  border-radius: 13px;
+  transition: 0.3s;
+  font-family: "Alata", sans-serif;
+  width: auto;
+  cursor: pointer;
+  padding: 4px;
+  display: inline-block;
+  margin: auto;
+  border: 2px solid #453642;
+  color: #453642;
+}
+.askQuesBtn:hover {
+  background-color: #453642;
+  border: 2px solid #453642;
+  color: #fff;
+}
+.askQues > span > button,
+.askQues > span > span {
+  width: 74px;
+  outline: none;
+  background-color: #fff;
+  color: #352633;
+  border-radius: 8px;
+  font-size: 26px;
+  border: 2px solid #352633;
+  font-family: "Acme", sans-serif;
+  cursor: pointer;
+  margin: 0 7px;
+  transition: 0.3s;
+  font-weight: lighter;
+}
+.askQues > span > button:hover,
+.askQues > span > span:hover {
+  background-color: #352633;
+  color: #fff;
+}
+.question {
+  width: 85vw;
+  margin: 10px auto;
+}
+.question > h1 {
+  text-align: center;
+  font-size: 45px;
+  font-family: "Francois One", sans-serif;
+  margin-bottom: 10px;
+}
+/* overflow-wrap: break-word; is used in order to break long words */
+/* white-space: pre-wrap; is used to preserve line breaks */
+.question > p {
+  font-size: 20px;
+  font-family: "Noto Serif JP", serif;
+  margin-bottom: 10px;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+}
+.details {
+  display: flex;
+  justify-content: space-between;
+}
+.question .details .quesDetails span {
+  font-family: "Teko", sans-serif;
+  font-size: 23px;
+  color: #706578;
+}
+.reactions {
+  margin: 6px 0;
+}
+.comments {
+  width: 85%;
+  margin: 10px auto;
+}
+.h1Heading {
+  text-decoration: underline;
+  font-size: 37px;
+  font-family: "Francois One", sans-serif;
+  margin: 20px 0;
+}
+.commentBox {
+  padding: 5px;
+  transition: 0.3s;
+  border: 0px solid black;
+  border-radius: 10px;
+  margin-bottom: 34px;
+  padding-bottom: 5px;
+  position: relative;
+  box-shadow: 1px 1px 4px;
+  background-color: #fff;
+}
+.commentBox h2 span {
+  font-family: "Catamaran", sans-serif;
+  background-color: #453642;
+  color: white;
+  border-radius: 5px;
+  padding: 0 3px;
+  font-size: 13px;
+  position: relative;
+  top: -4px;
+}
+.commentBox h2 {
+  font-family: "Acme", sans-serif;
+}
+.commentBox p {
+  font-family: "PT Sans Narrow", sans-serif;
+  font-size: 18px;
+  display: flex;
+  justify-content: space-between;
+}
+.commentBox p button {
+  transition: 0.2s;
+  border-radius: 4px;
+  font-family: "PT Sans Narrow", sans-serif;
+  border: 1px solid #614c5d;
+  background-color: white;
+  color: #614c5d;
+  font-size: 16px;
+  cursor: pointer;
+  outline: none;
+}
+.commentBox p button a {
+  transition: 0.2s;
+  text-decoration: none;
+  color: #614c5d;
+  padding: 5px;
+}
+.commentBox p button a:hover {
+  color: white;
+}
+.commentBox p button:hover {
+  border: 1px solid white;
+  background-color: #614c5d;
+  color: white;
+}
+.like,
+.comment {
+  background-color: #e5e5e5;
+  padding: 2px;
+  font-size: 17px;
+  border-radius: 5px;
+  font-family: "PT Sans Narrow", sans-serif;
+  transition: 0.3s;
+  cursor: pointer;
+}
+.comment:hover,
+.like:hover {
+  transform: scale(1.1);
+  background-color: #453642;
+  color: white;
+}
+.onClick {
+  background-color: #453642;
+  color: white;
+}
+.likeCount,
+.commentCount {
+  font-size: 17px;
+  border-radius: 5px;
+  font-family: "PT Sans Narrow", sans-serif;
+  margin: 0 4px;
+}
+/* max-height is used to make transition work on heig ht as it wasn't working on height:auto */
+.replies {
+  max-height: 0;
+  opacity: 0;
+  overflow-y: auto;
+  transition: 0.3s;
+  /* border-top: 1px solid; */
+}
+.replies::-webkit-scrollbar-track {
+  /* -webkit-box-shadow: inset 0 0 6px white; */
+  border-radius: 10px;
+  background-color: transparent;
+}
+
+.replies::-webkit-scrollbar {
+  width: 4px;
+  background-color: transparent;
+}
+
+.replies::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  /* -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3); */
+  background-color: #453642;
+}
+.repliesTransition {
+  opacity: 1;
+  max-height: 500px;
+}
+.replyBox {
+  margin: 3px 0;
+}
+.replyBox p {
+  font-family: "Open Sans Condensed", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  /* border-top: 1px solid grey; */
+  padding-top: 4px;
+  display: flex;
+  justify-content: space-between;
+}
+.replyBox p span button {
+  transition: 0.3s;
+  border-radius: 4px;
+  font-family: "PT Sans Narrow", sans-serif;
+  border: 1px solid #614c5d;
+  background-color: white;
+  font-size: 16px;
+  cursor: pointer;
+  outline: none;
+}
+.jusFade {
+  visibility: hidden;
+  opacity: 0;
+}
+.classFadeout {
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+  animation: fadout forwards 0.3s ease;
+}
+@keyframes fadeout {
+  0% {
+    display: block;
+  }
+  100% {
+    display: none;
+  }
+}
+.replyBox p span button a {
+  padding: 4px;
+  transition: 0.2s;
+  text-decoration: none;
+  color: #453642;
+}
+.replyBox p span button a:hover {
+  color: white;
+}
+.replyBox p span button:hover {
+  border: 1px solid #614c5d;
+  background-color: #614c5d;
+}
+.replyBox h3 {
+  font-family: sans-serif;
+  font-size: 14px;
+}
+.replyBox h3 span {
+  font-family: "Catamaran", sans-serif;
+  background-color: #453642;
+  color: white;
+  border-radius: 5px;
+  padding: 0 2px;
+  font-size: 9px;
+  font-weight: 100;
+  position: relative;
+  top: -1px;
+}
+.addReply {
+  display: flex;
+  justify-content: space-between;
+  border-radius: 10px;
+  background-color: #ddd;
+  border: 2px solid transparent;
+}
+.addReply > input {
+  outline: none;
+  box-sizing: initial;
+  border: 2px solid #ddd;
+  background-color: transparent;
+  width: -webkit-fill-available;
+  padding: 5px;
+  font-size: 18px;
+  font-family: "PT Sans Narrow", sans-serif;
+  transition: 0.2s;
+}
+.addReply > input::placeholder {
+  font-family: "PT Sans Narrow", sans-serif;
+  transition: 0.2s;
+}
+/* Change the white to any color ;) */
+
+/* .addReply > input:-webkit-autofill,
+.addReply > input:-webkit-autofill:hover, 
+.addReply > input:-webkit-autofill:focus, 
+.addReply > input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px #ddd inset !important;
+} */
+.addReply > input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 50px #ddd inset; /* Change the color to your own background color */
+  -webkit-text-fill-color: #333;
+}
+
+.addReply > input:-webkit-autofill:focus {
+  -webkit-box-shadow: /*your box-shadow*/ 0 0 0 50px #ddd inset;
+  -webkit-text-fill-color: #333;
+}
+/* -------------------------------------------------------------------- */
+.actionBtns > button {
+  outline: none;
+  border: none;
+  background-color: transparent;
+  position: relative;
+  top: -3px;
+}
+.actionBtns {
+  display: flex;
+  margin-right: 10px;
+}
+.actionBtns > span {
+  color: #530b0e;
+  display: flex;
+  font-family: "PT Sans Narrow", sans-serif;
+  align-items: center;
+  margin: 5px 10px 5px 0;
+  border: 1px solid;
+  padding: 1px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s;
+  box-shadow: 1px 1px 8px grey;
+}
+.btnOnReply {
+  display: flex;
+}
+.editBtn {
+  transition: 0.1s;
+}
+.actionBtns > span:hover {
+  background-color: #530b0e;
+  color: white;
+}
+.fa-telegram-plane:before {
+  content: "\f3fe";
+  font-size: 32px;
+  position: relative;
+  top: 3px;
+}
+.fab {
+  filter: drop-shadow(2px 4px 2px grey);
+  transition: 0.2s;
+}
+.fab:hover {
+  color: rebeccapurple;
+}
+
+/* For Sign In & Sign Up Page */
+.signinContainer {
+  font-family: "Alata", sans-serif;
+  width: 95%;
+  font-size: 29px;
+  text-align: center;
+  margin: 83px auto 0px auto;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  justify-content: center;
+  align-items: center;
+  height: 69vh;
+  color: #675964;
+}
+.signinContainer > form {
+  width: 70%;
+  margin: 10px auto;
+  display: flex;
+  flex-direction: column;
+}
+.signinContainer > form div {
+  display: block;
+  position: relative;
+  flex-direction: column;
+}
+/* Specific for Sign In Page as it doesn't contain div as parent element of inputs */
+.signinContainer > form > input {
+  margin: 10px auto;
+  outline: none;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  font-size: 25px;
+  padding: 7px;
+  font-family: "Alata", sans-serif;
+  background-color: #ddd;
+  width: 100%;
+}
+/* --------------------------------------------------------------------------------- */
+.signinContainer > form div > input,
+.signinContainer > form > button {
+  margin: 5px auto;
+  outline: none;
+  border: 2px solid transparent;
+  transition: 0.5s;
+  border-radius: 12px;
+  font-size: 25px;
+  padding: 7px;
+  font-family: "Alata", sans-serif;
+  background-color: #ddd;
+  width: 100%;
+}
+
+.signinContainer > form > button {
+  width: auto;
+  margin: 5px auto;
+  background-color: #91728b;
+  border: 0px;
+  color: white;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+.signinContainer > form > button:hover {
+  border: 2px solid #91728b;
+  background-color: transparent;
+  color: #91728b;
+  overflow: hidden;
+}
+.warn {
+  margin: 0 auto;
+  font-size: 10px;
+  text-align: initial;
+  visibility: hidden;
+  color: #b4002b;
+  display: block;
+}
+#passNotMatch {
+  transform: translateY(-15px);
+}
+.info {
+  margin: 0 auto;
+  font-size: 10px;
+  text-align: initial;
+  color: green;
+  display: block;
+}
+.animate {
+  animation: shake 0.2s 1;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(10px);
+  }
+  50% {
+    transform: translateX(-10px);
+  }
+  75% {
+    transform: translateX(10px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+.alert {
+  display: flex;
+  justify-content: space-between;
+  background-color: lightyellow;
+  padding: 7px;
+  width: 100vw;
+  position: absolute;
+  overflow: hidden;
+  transition: 0.2s;
+}
+.alert > h2 {
+  font-family: "Fjalla One", sans-serif;
+  font-weight: 500;
+  font-size: 23px;
+}
+.alert > i {
+  display: flex;
+  align-items: center;
+  font-size: x-large;
+  margin-right: 17px;
+  cursor: pointer;
+}
+@media screen and (min-width: 618px) and (max-width: 712px) {
+  .user {
+    font-size: 14px;
+    padding: 5px;
+  }
+  .btn > a {
+    font-size: 18px;
+  }
+  .searchBarContainer{
+    margin: 0 0;
+  }
+  .nav-links > .crossNdLinks > ul > li > a {
+    font-size: 18px;
+  }
+  .big {
+    font-size: 31px;
+  }
+  .small {
+    font-size: 26px;
+  }
+  .main > h1 {
+    font-size: 40px;
+  }
+  .categoryContainer {
+    width: 93%;
+  }
+}
+@media screen and (max-width: 618px) and (min-width: 587px) {
+  .nav-links > .crossNdLinks > ul > li {
+    margin: 0 4px;
+  }
+  .user {
+    font-size: 12px;
+  }
+  .btn > a {
+    font-size: 17px;
+  }
+  .searchBarContainer{
+    margin: 0 0;
+  }
+  .nav-links > .crossNdLinks > ul > li > a {
+    font-size: 16px;
+  }
+  .big {
+    font-size: 31px;
+  }
+  .question .details .quesDetails span {
+    font-size: 20px;
+  }
+  #editQues {
+    padding: 0 5px;
+  }
+  .quesBtns button {
+    font-size: 20px;
+  }
+  .question > h1 {
+    font-size: 39px;
+  }
+  .question > p {
+    font-size: 18px;
+  }
+  .main > h1 {
+    font-size: 40px;
+  }
+  .categoryContainer {
+    width: 100%;
+  }
+  .categorySection > h1 {
+    flex-direction: column;
+  }
+  .signinContainer > form {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 587px) {
+  .categorySection > h1 {
+    flex-direction: column;
+  }
+  .big {
+    font-size: 29px;
+  }
+  .small {
+    font-size: 26px;
+  }
+  .user {
+    font-size: 11px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+  }
+  .btn > a {
+    font-size: 17px;
+  }
+  .searchBarContainer{
+    margin: 0 0;
+  }
+  .nav-links {
+    position: fixed;
+    top: 0;
+    display: flex;
+    z-index: 1;
+    right: 0;
+    height: 100vh;
+    width: 100vw;
+    justify-content: flex-end;
+    transform: translateX(1000px);
+    transition: 0.2s;
+  }
+  .crossNdLinks {
+    background-color: white;
+    box-shadow: -5px 0 39px;
+    flex-direction: column;
+    height: 100vh;
+  }
+  .nav-links > .crossNdLinks > ul {
+    flex-direction: column;
+    align-items: initial;
+  }
+  .nav-links > .crossNdLinks > ul > li {
+    margin: 24px 21px;
+  }
+  .nav-links > .crossNdLinks > ul > li:hover a {
+    color: rgba(0, 0, 0, 0.7);
+  }
+  .nav-links > .crossNdLinks > ul > li:nth-child(3) {
+    margin-top: 0px;
+  }
+  .searchBar {
+    background-color: #ddd;
+    margin: 10px;
+  }
+  .searchBar > input {
+    font-size: 21px;
+  }
+  .dropdownOption {
+    position: static;
+    margin-bottom: 0;
+  }
+  .dropdownOption > div {
+    opacity: 1;
+    position: static;
+    height: 89px;
+  }
+  .dropdownOption > div > ul > li {
+    text-align: initial;
+  }
+  .nav-links > .crossNdLinks > ul > li > a {
+    color: #000;
+    padding: 5px;
+    font-size: 24px;
+    font-weight: 900;
+  }
+  .quesBox h1 {
+    font-size: 26px;
+  }
+  .categorySection > h1 > a {
+    font-size: 15px;
+  }
+  .main > h1 {
+    font-size: 25px;
+  }
+  .cross {
+    margin-top: 20px;
+    display: inline-block;
+  }
+  .cross > i {
+    margin-left: 16px;
+    font-size: 35px;
+  }
+  .question .details .quesDetails span {
+    font-size: 18px;
+  }
+  .quesBtns button a {
+    padding: 5px;
+  }
+  #editQues {
+    padding: 0 5px;
+  }
+  .quesBtns button {
+    font-size: 18px;
+    margin: 0 5px 0 0;
+  }
+  .categorySidebar {
+    display: none;
+  }
+  .main {
+    width: initial;
+  }
+  .categoryContainer {
+    width: initial;
+  }
+  .postQuesWarn {
+    font-size: 19px;
+  }
+  .modalContainer > form > h1 {
+    font-size: 23px;
+  }
+  .menuIcon {
+    display: block;
+    margin-right: 8px;
+  }
+  .menuIcon > i {
+    color: white;
+    font-size: xx-large;
+  }
+  .noQuesAlertOnCategoryPage {
+    font-size: 28px;
+  }
+  .h1Heading {
+    overflow-wrap: initial;
+  }
+  .comments {
+    width: 96%;
+  }
+  .question {
+    width: 95vw;
+  }
+  .question > h1 {
+    font-size: 30px;
+  }
+  .question > p {
+    font-size: 18px;
+  }
+  .catTitle > a {
+    font-size: 23px;
+  }
+  .catAnswer {
+    font-size: 17px;
+  }
+  .details {
+    flex-direction: column;
+  }
+  .signinContainer > form {
+    width: 100%;
+  }
+  .signinContainer > form div > input,
+  .signinContainer > form > button {
+    font-size: 19px;
+  }
+  .alert > h2 {
+    font-size: 17px;
+    text-align: center;
+  }
+  .signinContainer {
+    margin: 0px auto 0px auto;
+  }
+  .signinContainer > form > input {
+    font-size: 19px;
+  }
+  .noQuesAlert {
+    font-size: 20px;
+  }
+  .askQues > input,
+  .askQues > textarea {
+    font-size: 22px;
+  }
+  /* --------------------------- */
+  
+  .afterSuccessLogin {
+    position: relative;
+  }
+  .accountNameToggle {
+    display: flex;
+  }
+  .toggle {
+    transition: 0.2s;
+    filter: drop-shadow(4px 3px 4px black);
+  }
+  .rotateAccountNameToggle {
+    transform: rotate(180deg);
+    filter: drop-shadow(-4px -3px 4px black);
+  }
+  .user {
+    color: white;
+    padding: 8px;
+    font-size: 17px;
+    border-radius: 23px;
+    margin: 0 5px;
+    background-color: #7a6f86;
+    font-family: "Poppins", sans-serif;
+    position: absolute;
+    top: 46px;
+    left: -85px;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-wrap: break-word;
+    min-width: 206.641px;
+    max-width: 206.641px;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.2s;
+  }
+  .userToggle {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+@media screen and (max-width: 353px) {
+  .nav-logo {
+    margin: 10px 0 10px 3px;
+  }
+  .searchBarContainer{
+    margin: 0 150px;
+  }
+  .big {
+    font-size: 24px;
+  }
+  .small {
+    font-size: 22px;
+  }
+  .user {
+    font-size: 11px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+  }
+  .btn > a {
+    font-size: 14px;
+  }
+  .signinSignup {
+    margin-right: 0px;
+    display: flex;
+  }
+  .btn {
+    font-size: 12px;
+    background-color: transparent;
+    outline: none;
+    margin: 0 5px;
+    border: 0px solid white;
+    border-radius: 8px;
+    transition: 0.2s;
+  }
+}
+@media screen and (min-width: 587px) and (max-width: 964px) {
+  .toggleSearchBtn {
+    display: flex;
+  }
+  .searchBarContainer {
+    padding: 8px;
+    background-color: #ddd;
+    position: absolute;
+    top: 55px;
+    border-bottom-right-radius: 10px;
+    width: 100vw;
+    border-bottom-left-radius: 10px;
+    left: 0;
+    margin: 0 auto;
+    height: 0;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.2s;
+    overflow: hidden;
+  }
+  .searchBarToggle {
+    height: 49px;
+    visibility: visible;
+    opacity: 1;
+  }
+  .rotateSearchBarToggle {
+    transform: rotateY(360deg);
+  }
+  .searchBar {
+    width: 86%;
+    margin: auto;
+  }
+  .searchBar > input {
+    font-size: 19px;
+  }
+  .afterSuccessLogin {
+    position: relative;
+  }
+  .accountNameToggle {
+    display: flex;
+  }
+  .toggle {
+    transition: 0.2s;
+    filter: drop-shadow(4px 3px 4px black);
+  }
+  .rotateAccountNameToggle {
+    transform: rotate(180deg);
+    filter: drop-shadow(-4px -3px 4px black);
+  }
+  .user {
+    color: white;
+    padding: 8px;
+    font-size: 17px;
+    border-radius: 23px;
+    margin: 0 5px;
+    background-color: #7a6f86;
+    font-family: "Poppins", sans-serif;
+    position: absolute;
+    top: 46px;
+    left: -85px;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-wrap: break-word;
+    min-width: 206.641px;
+    max-width: 206.641px;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.2s;
+  }
+  .userToggle {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+@media screen and (max-width: 712px) {
+  .searchBarContainer {
+    top: 46px;
+  }
+}
+@media screen and (max-width: 1125px) {
+  .searchBarContainer {
+   margin: 0 0;
+  }
+}

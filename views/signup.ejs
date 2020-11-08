@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="icon" href="/img/favicon.ico" type="image/x-icon"> 
+</head>
+
+<body>
+    <%- include('partials/navbar.ejs') %>
+    <% if(alert != ''){ %>
+    <div class="alert">
+        <span></span>
+        <h2><%= alert %></h2>
+        <i class="fas fa-times"></i>
+    </div>
+    <% } %>
+   
+    <div class="signinContainer">
+        <h1>Sign Up</h1>
+        <form action="/user/signup" id="signupForm" method="post">
+            <div>
+                <small class="info">Name must be Between 2-20 Characters</small>
+                <input type="text" minlength="3" maxlength="20" name="name" placeholder="Enter Your Name">
+                <small class="warn">Please Enter Name</small>
+            </div>
+            <div>
+                <input type="email" name="email" placeholder="Enter Your Email ">
+                <small class="warn">Please Enter A valid E-mail Address</small>
+            </div>
+            <div>
+                <input type="password" minlength="6" name="password" placeholder="Enter Your Password ">
+                <small class="warn">Please Enter Password of Minimum 6 characters</small>
+            </div>
+            <div>
+                <input type="password" name="cpassword" placeholder="Enter Password Again">
+                <small class="warn">Your Haven't confirmed your password</small>
+                <small class="warn" id="passNotMatch">Your Passwords Didn't Match</small>
+            </div>
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+</body>
+<script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
+<script src="/javascript/signup.js"></script>
+
+</html>

@@ -1,0 +1,183 @@
+<% function convertName(name){
+    let splitName = name.trim().split(' ').filter(e => e !== '')
+    let properName = ''
+    splitName.forEach((e)=>{
+        let first = e.charAt(0).toUpperCase()
+        let rest = e.substr(1)
+        properName += first + rest + ' '
+    })
+    return properName.trim()
+} %>
+
+<% function quesAddedAgo(time){
+    let currentDate = new Date()
+    let qtime = new Date(time).getTime()
+    if (currentDate.getTime() - qtime > 60000 && currentDate.getTime() - qtime <= 3600000) {
+      let elapsedTime = Math.floor((currentDate.getTime() - qtime) / 60000)
+      return `${elapsedTime} minutes ago`
+    } else if (currentDate.getTime() - qtime >= 0 && currentDate.getTime() - qtime <= 60000) {
+        let elapsedTime = Math.floor((currentDate.getTime() - qtime) / 1000)
+      return `${elapsedTime} seconds ago`
+    } else if (currentDate.getTime() - qtime > 3600000 && currentDate.getTime() - qtime <= 86400000) {
+        let elapsedTime = Math.floor((currentDate.getTime() - qtime) / 3600000)
+      return `${elapsedTime} hours ago`
+    } else if (currentDate.getTime() - qtime > 86400000 && currentDate.getTime() - qtime <= 2678400000) {
+        let elapsedTime = Math.floor((currentDate.getTime() - qtime) / 86400000)
+      return `${elapsedTime} days ago`
+    } else {
+      let timeItWasPosted = new Date(time)
+      let day = timeItWasPosted.getMonth()
+      let date = timeItWasPosted.getDate()
+      let year = timeItWasPosted.getFullYear()
+      let hour = timeItWasPosted.getHours()
+      let min = timeItWasPosted.getMinutes()
+      const monthNames = ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+      ];
+        return `${date} ${monthNames[day]} ${year}`
+    }
+  } %>
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="icon" href="/img/favicon.ico" type="image/x-icon"> 
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+</head>
+
+<body>
+    <% if (authenticated == true && user[0]._id == quest.postedBy) { %>
+    <div class="modalContainer displayNone opacityZero">
+        <form action="#" class="modal" method="post">
+            <h1>Edit Your Question</h1>
+            <label for="editTitle">Edit Title</label>
+            <input type="text" minlength="20" maxlength="200" class="quesEditElement" name="editTitle">
+            <label for="editDescription">Edit Description</label>
+            <textarea name="editDescription" class="quesEditElement"></textarea>
+            <span class="editQuesBtns">
+                <span id="cancelEditQues">Cancel</span>
+                <button type="submit">Submit Changes</button>
+            </span>
+            <input type="hidden" value="<%= quest._id %>">
+        </form>
+    </div>
+    <% } %>
+    <% let isPostedByThere = allUsers.some(user=>user._id == quest.postedBy) %>
+    <% let nameWhoPosted %>
+    <% if(isPostedByThere){
+        let postedBy = allUsers.filter(user=>user._id == quest.postedBy)
+        nameWhoPosted = convertName(postedBy[0].name)
+    } else{ 
+        nameWhoPosted = 'none'
+    } %>
+
+    <%- include('partials/navbar.ejs') %>
+    <section class="question">
+        <h1 id="mainQues"><%= quest.question %></h1>
+        <p><%= quest.description %> </p>
+        <hr>
+        <div class="details">
+            <div class="quesDetails">
+                <span>Asked by: <%= nameWhoPosted %> |</span>
+                <span><%= quesAddedAgo(quest.dateAdded) %> |</span>
+                <span><%= quest.answers %> comments</span>
+            </div>
+            <% if (authenticated == true && user[0]._id == quest.postedBy) { %>
+            <span class="quesBtns">
+                <button id="editQues">Edit Question</button>
+                <button><a href="/question/delete/<%= quest._id %>?_method=DELETE">Delete Question</a></button>
+            </span>
+            <% } %>
+        </div>
+    </section>
+    <section class="comments">
+        <h1 class="h1Heading">Comments</h1>
+        <% if(typeof commentsToTheQuestion != 'undefined'){ %>
+        <% if(commentsToTheQuestion.length != 0){ %>
+        <% commentsToTheQuestion.forEach(comment=>{ %>
+        <div class="commentBox">
+            <h2><%= convertName(comment.commentBy) %> <span><%= quesAddedAgo(parseInt(comment.dateAdded)) %> </span>
+            </h2>
+            <input type="hidden" value="<%= comment._id %>">
+            <p><%= comment.comment %> <% if (authenticated == true && user[0]._id == comment.commentBy_Id) { %>
+                <span style="display: flex;">
+                    <button class="editCommentBtn" style="margin: 0 4px;"><a href="#askQues">Edit</a></button>
+                    <button><a href="/question/comment/<%= comment._id %>?_method=DELETE">Delete Comment</a></button>
+                </span>
+                <% } %></p>
+            <div class="reactions">
+                <span
+                    class="comment">Replies</span><span class="commentCount"><%= comment.repliesOfComment %></span>
+            </div>
+            <% if(authenticated){ %>
+            <form action="/question/comment/reply" class="addReply" method="POST">
+                <input type="hidden" name="commentId" value="<%= comment._id %>">
+                <input type="hidden" name="question" value="<%= quest.question %>">
+                <input type="text" class="replyInput" placeholder="Write Your Reply" name="reply">
+                <span class="actionBtns">
+                    <button type="submit" class="replyInputBtn" id="replySubmitButton"
+                        style="cursor: pointer; display: flex;"><i class="fab fa-telegram-plane"></i></button>
+                </span>
+            </form>
+            <% } %>
+            <div class="replies">
+                <% let repliesAvailable = repliesOfCommentsOnThisQuestion.some(reply => reply.replyOnCommentId == comment._id) %>
+                <% if(repliesAvailable){ %>
+                <% let repliesOfTheComment = repliesOfCommentsOnThisQuestion.filter(reply => reply.replyOnCommentId == comment._id) %>
+                <% repliesOfTheComment.forEach(reply => { %>
+
+                <div class="replyBox">
+                    <p><%= reply.reply %>
+                        <span
+                            class="btnOnReply"><% if (authenticated == true && user[0]._id == reply.replyBy_userId) { %>
+                            <input type="hidden" value="<%= reply._id %>">
+                            <button class="editBtn" style="padding: 0 4px; margin: 0 4px;">Edit</button>
+                            <button> <a href="/question/<%= reply._id %>?_method=DELETE">Delete Reply</a> </button>
+                            <% } %></span></p>
+                    <h3><%= convertName(reply.replyBy_userName) %> <span><%=  quesAddedAgo(reply.dateOnReplied) %>
+                            </span></h3>
+                </div>
+                <% }) %>
+                <% } %>
+            </div>
+        </div>
+        <% }) %>
+        <% } else { %>
+        <h1 class="postQuesWarn"> No Comments Yet, Be the first one to comment to this question. </h1>
+        <% } %>
+        <% } else { %>
+        <h1 class="postQuesWarn"> No Comments Yet, Be the first one to comment to this question. </h1>
+        <% } %>
+        <% if(authenticated) { %>
+        <% let queAcJs = quest.question.replace(/\?/g, '%3F') %>
+        <form action="/question/<%= queAcJs %>" method="post" class="askQues" id="askQues">
+            <h1>Add Comment</h1>
+            <input type="text" class="title" style="padding: 19px; margin-bottom: 10px;" name="comment"
+                placeholder="Add a Comment to the Question">
+            <span>
+                <button type="submit" style="font-size: 26px; width: auto; padding: 4px;">Submit</button>
+            </span>
+        </form>
+        <% } else { %>
+        <h1 class="postQuesWarn">You need to <a href="/user/login">Log In</a> in order to Post a Comement to the
+            Question</h1>
+        <% } %>
+
+    </section>
+</body>
+<script>
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+</script>
+<script src="/javascript/question.js"></script>
+
+</html>

@@ -1,0 +1,76 @@
+<% function convertName(name){
+    let splitName = name.trim().split(' ').filter(e => e !== '')
+    let properName = ''
+    splitName.forEach((e)=>{
+        let first = e.charAt(0).toUpperCase()
+        let rest = e.substr(1)
+        properName += first + rest + ' '
+    })
+    return properName.trim()
+} %>
+<nav>
+    <div class="logoNdLinks">
+        <div class="nav-logo">
+            <a href="/">
+                <h1 class="big">L<span class="small">ET'S</span> T<span class="small">ALK</span></h1>
+            </a>
+        </div>
+        <div class="nav-links">
+            <div class="crossNdLinks">
+                <div class="cross">
+                    <i class="fas fa-times"></i>
+                </div>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li class="dropdownOption">
+                        <a href="/">Categories</a>
+                        <div>
+                            <ul>
+                                <li><a href="#">JavaScript</a></li>
+                                <li><a href="#">Python</a></li>
+                                <li><a href="#">Kotlin</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a href="/">About</a></li>
+                </ul>
+                <div class="searchBarContainer">
+                    <form class="searchBar" method="/search" id="searchForm">
+                        <input type="text" autocomplete="off" placeholder="Search Questions" name="search">
+                        <button type="submit" class="searchBtn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+                <div class="toggleSearchBtn">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+        </div>
+    </div>  
+
+    <!-- <% if(typeof user != 'undefined'){ %>
+        <span class="user">Welcome <%= convertName(user[0].name) %></span>
+        <% } %> -->
+        <div class="menuNdOther">
+            <% if(typeof authenticated != 'undefined'){ %>
+                <% if(authenticated == true){ %> 
+                    <div class="afterSuccessLogin">
+                        <div class="accountNameToggle"><i class="fas fa-angle-down toggle"></i></div>
+                        <span class="user" id="userName"><%= convertName(user[0].name) %></span>
+                        <div class="signinSignup">
+                            <button class="btn"><a href="/user/logout">Log Out</a></button>
+                        </div>
+                    </div>
+                <% } %>
+            <% } else { %>
+            <div class="signinSignup">
+                <button class="btn"><a href="/user/login">Sign In</a></button>
+                <button class="btn"><a href="/user/signup">Sign Up</a></button>
+            </div>
+            <% } %>
+            <div class="menuIcon">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+</nav>

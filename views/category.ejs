@@ -1,0 +1,107 @@
+<% function convertName(name){
+    let splitName = name.trim().split(' ').filter(e => e !== '')
+    let properName = ''
+    splitName.forEach((e)=>{
+        let first = e.charAt(0).toUpperCase()
+        let rest = e.substr(1)
+        properName += first + rest + ' '
+    })
+    return properName.trim()
+} %>
+
+<% function quesAddedAgo(time){
+    let currentDate = new Date()
+    let qtime = new Date(time).getTime()
+    if (currentDate.getTime() - qtime > 60000 && currentDate.getTime() - qtime <= 3600000) {
+      let elapsedTime = Math.floor((currentDate.getTime() - qtime) / 60000)
+      return `${elapsedTime} minutes ago`
+    } else if (currentDate.getTime() - qtime >= 0 && currentDate.getTime() - qtime <= 60000) {
+        let elapsedTime = Math.floor((currentDate.getTime() - qtime) / 1000)
+      return `${elapsedTime} seconds ago`
+    } else if (currentDate.getTime() - qtime > 3600000 && currentDate.getTime() - qtime <= 86400000) {
+        let elapsedTime = Math.floor((currentDate.getTime() - qtime) / 3600000)
+      return `${elapsedTime} hours ago`
+    } else if (currentDate.getTime() - qtime > 86400000 && currentDate.getTime() - qtime <= 2678400000) {
+        let elapsedTime = Math.floor((currentDate.getTime() - qtime) / 86400000)
+      return `${elapsedTime} days ago`
+    } else {
+      let timeItWasPosted = new Date(time)
+      let day = timeItWasPosted.getMonth()
+      let date = timeItWasPosted.getDate()
+      let year = timeItWasPosted.getFullYear()
+      let hour = timeItWasPosted.getHours()
+      let min = timeItWasPosted.getMinutes()
+      const monthNames = ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+      ];
+        return `${date} ${monthNames[day]} ${year}`
+    }
+  } %>
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= cat[0].categoryName %></title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="icon" href="/img/favicon.ico" type="image/x-icon"> 
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+</head>
+
+<body>
+    <%- include('partials/navbar.ejs') %>
+    <section class="categorySection">
+        <h1><span></span> <%= cat[0].categoryName %><a href="#askQues">Ask Question</a></h1>
+        <div class="quesAns">
+            <% categoryQuestions = categoryQuestions.reverse() %>
+            <% if(categoryQuestions.length == 0){ %>
+            <h1 class="noQuesAlertOnCategoryPage">No Question Yet. Be The First One To Ask</h1>
+            <% } %>
+            <% categoryQuestions.forEach((ques)=>{ %>
+            <% let queAcJs = ques.question.replace(/\?/g, '%3F') %>
+
+            <% let isPostedByThere = allUsers.some(user=>user._id == ques.postedBy) %>
+            <% let nameWhoPosted %>
+            <% if(isPostedByThere){
+                let postedBy = allUsers.filter(user=>user._id == ques.postedBy)
+                nameWhoPosted = convertName(postedBy[0].name)
+            } else{ 
+                nameWhoPosted = 'none'
+            } %>
+
+
+            <div class="quesBox">
+                <h1><a href="/question/<%= queAcJs %>"><%= ques.question %></a></h1>
+                <span>Asked by: <%= nameWhoPosted %></span> <span><%= quesAddedAgo(ques.dateAdded) %></span>
+                <span><%= ques.answers %> answers</span>
+                <p><%= ques.description.substring(0, 784) %><% if(ques.description.length >= 784) { %>
+                    .... <a href="/question/<%= queAcJs %>">More</a>
+                    <% } %></p>
+            </div>
+            <% }) %>
+        </div>
+    </section>
+    <% if(typeof authenticated != 'undefined'){ %>
+    <% if(authenticated == true){ %>
+    <form action="/category/<%= cat[0].categoryName %>" method="post" class="askQues" id="askQues">
+        <h1>Ask a New Question</h1>
+        <input type="text" class="title" minlength="20" maxlength="200" name="title" placeholder="Give Your Question a Title">
+        <small>Title should be between 20-200 characters</small>
+        <textarea name="description" class="desc" placeholder="Elaborate Your Question"></textarea>
+        <small style="color: #b4002b; visibility: hidden;">Description Can't Be Empty</small>
+        <button type="submit" class="askQuesBtn">Submit</button>
+    </form>
+    <% } else { %>
+    <h1 class="postQuesWarn">You need to <a href="/user/login">Log In</a> in order to Post a Question</h1>
+    <% } %>
+    <% } else { %>
+    <h1 class="postQuesWarn">You need to <a href="/user/login">Log In</a> in order to Post a Question</h1>
+    <% } %>
+</body>
+<script src="/javascript/category.js"></script>
+
+</html>

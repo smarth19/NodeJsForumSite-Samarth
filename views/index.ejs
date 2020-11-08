@@ -1,0 +1,114 @@
+<% function convertName(name){
+    let splitName = name.trim().split(' ').filter(e => e !== '')
+    let properName = ''
+    splitName.forEach((e)=>{
+        let first = e.charAt(0).toUpperCase()
+        let rest = e.substr(1)
+        properName += first + rest + ' '
+    })
+    return properName.trim()
+} %>
+
+<% function quesAddedAgo(time){
+  let currentDate = new Date()
+  let qtime = new Date(time).getTime()
+  if (currentDate.getTime() - qtime > 60000 && currentDate.getTime() - qtime <= 3600000) {
+    let elapsedTime = Math.floor((currentDate.getTime() - qtime) / 60000)
+    return `${elapsedTime} minutes ago`
+  } else if (currentDate.getTime() - qtime >= 0 && currentDate.getTime() - qtime <= 60000) {
+      let elapsedTime = Math.floor((currentDate.getTime() - qtime) / 1000)
+    return `${elapsedTime} seconds ago`
+  } else if (currentDate.getTime() - qtime > 3600000 && currentDate.getTime() - qtime <= 86400000) {
+      let elapsedTime = Math.floor((currentDate.getTime() - qtime) / 3600000)
+    return `${elapsedTime} hours ago`
+  } else if (currentDate.getTime() - qtime > 86400000 && currentDate.getTime() - qtime <= 2678400000) {
+      let elapsedTime = Math.floor((currentDate.getTime() - qtime) / 86400000)
+    return `${elapsedTime} days ago`
+  } else {
+    let timeItWasPosted = new Date(time)
+    let day = timeItWasPosted.getMonth()
+    let date = timeItWasPosted.getDate()
+    let year = timeItWasPosted.getFullYear()
+    let hour = timeItWasPosted.getHours()
+    let min = timeItWasPosted.getMinutes()
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+    ];
+      return `${date} ${monthNames[day]} ${year}`
+  }
+} %>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="icon" href="/img/favicon.ico" type="image/x-icon"> 
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+</head>
+<% function catName(cat, ques) {
+    let filtered = cat.filter(category => category._id == ques.cat_Id)
+    return filtered[0].categoryName 
+} %>
+<body>
+    <%- include('partials/navbar.ejs') %>
+    <section class="categorySidebar">
+        <h2>Latest Questions</h2>
+        <div>
+            <% let latestQuestions = questionss.reverse() %>
+            <% latestQuestions.forEach((ques)=>{ %>
+                <% let category = catName(categoriess, ques) %>
+                <% let queAcJs = ques.question.replace(/\?/g, '%3F') %>
+                <div class="ques">
+                    <h4 class="title"><a href="/question/<%= queAcJs %>"><%= ques.question %></a></h4>
+                    <span><%= quesAddedAgo(ques.dateAdded) %> | <%= ques.answers %> answers | <%= category %></span>
+                    <div class="line"></div>
+                </div>
+            <% }) %>
+        </div>
+    </section>
+    <section class="main">
+        <h1>Browse All Categories</h1>
+        <% let catNo = 1 %>
+        <% categoriess.forEach((category)=>{ %>
+            <fieldset class="categoryContainer">
+                <legend><a href="/category/<%= category.categoryName %>"><%= catNo %>. <%= category.categoryName %></a></legend>
+                <% catNo++ %>
+            <% let isQues = questionss.some(ques => ques.cat_Id == category._id) %>
+            <% if(isQues == false){ %>
+                <h4 class="noQuesAlert">There's no question related to this category. Be the first one to ask Question</h4>
+            <% } %>
+            <% let quesNo = 1 %>
+            <% questionss.forEach((question)=>{ %>
+                <% if(question.cat_Id == category._id) { %>
+                    <% let queAcJs = question.question.replace(/\?/g, '%3F') %>
+                    <% let isPostedByThere = allUsers.some(user=>user._id == question.postedBy) %>
+                    <% let nameWhoPosted %>
+                    <% if(isPostedByThere){
+                        let postedBy = allUsers.filter(user=>user._id == question.postedBy)
+                        nameWhoPosted = convertName(postedBy[0].name)
+                    } else{ 
+                        nameWhoPosted = 'none'
+                    } %>
+                    <div class="catQues">
+                        <h4 class="catTitle"><a href="/question/<%= queAcJs %>"><%= quesNo %>. <%= question.question %></a> <span>Asked by: <%= nameWhoPosted %></span> <span><%= quesAddedAgo(question.dateAdded) %></span> <span><%= question.answers %> answers</span></h4>
+                        <p class="catAnswer"><% if(question.description.length >= 97){ %>
+                            <%= question.description.substring(0, 97) %>
+                        <% } else { %>
+                            <%= question.description %>
+                        <% } %>
+                            ...<a href="/question/<%= queAcJs %>">More</a></p>
+                    </div>
+                    <% quesNo++ %>
+                <% } %>
+           <% }) %>
+            </fieldset>
+        <% }) %>
+    </section>
+</body>
+<script src="/javascript/index.js"></script>
+
+</html>
